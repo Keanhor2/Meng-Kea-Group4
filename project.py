@@ -1,3 +1,4 @@
+from os import get_inheritable
 import tkinter as tk
 from tkinter import *
 root=Tk()
@@ -69,66 +70,82 @@ def findColDiamond(array):
             for col in range(len(array[row])):
                 if array[row][col]==2:
                     return col
-number=0
-def CollectDiamond():
-    global number
+Score=0
+def moveRight(event):
+    global Score
     Row1=findRow(grid)
     Col1=findCol(grid)
-    Row2=findRowDiamond(grid)
-    Col2=findColDiamond(grid)
-    if grid[Row1][Col1]==grid[Row2][Col2]:
-        number+=1
-        print(number)
-    drawGrid()
-def moveRight(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
     canvas.delete("all")
-    if Col+1< len(grid[Row]):
-        grid[Row][Col]=0
-        grid[Row][Col+1]=1
+    if Col1+1< len(grid[Row1]):
+        if grid[Row1][Col1+1] ==0:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1+1]=1
+        elif grid[Row1][Col1+1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1+1]=1
+            Score+=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
-    CollectDiamond()
     drawGrid()
+    print(Score)
     # canvas.move(mario,20,0)
 
 def moveLeft(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
     canvas.delete("all")
-    if Col>0:
-        grid[Row][Col]=0
-        grid[Row][Col-1]=1
+    if Col1>0:
+        if grid[Row1][Col1-1] ==0:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1-1]=1
+        elif grid[Row1][Col1-1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1-1]=1
+            Score+=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
-    CollectDiamond()
     drawGrid()
+    print(Score)
     # canvas.move(mario,-20,0)
 def moveUp(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
     canvas.delete("all")
-    if Row>0:
-        grid[Row][Col]=0
-        grid[Row-1][Col]=1
+    if Row1>0:
+        if grid[Row1-1][Col1] ==0:
+            grid[Row1][Col1]=0
+            grid[Row1-1][Col1]=1
+        elif grid[Row1-1][Col1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1-1][Col1]=1
+            Score+=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
-    CollectDiamond()
     drawGrid()
+    print(Score)
     # canvas.move(mario,0,-20)
 def moveDown(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
     canvas.delete("all")
-    if Row+1< len(grid[Row]):
-        grid[Row][Col]=0
-        grid[Row+1][Col]=1
+    if Row1+1< len(grid[Row1]):
+        if grid[Row1+1][Col1] ==0:
+            grid[Row1][Col1]=0
+            grid[Row1+1][Col1]=1
+        elif grid[Row1+1][Col1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1+1][Col1]=1
+            Score+=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
-    CollectDiamond()
     # canvas.move(mario,0,20)
     drawGrid()
+    print(Score)
+
 root.bind("<Down>",moveDown)
 root.bind("<Up>",moveUp)
 root.bind("<Left>", moveLeft)
 root.bind('<Right>', moveRight)
+
 canvas.pack(expand=True,fill="both")
 frame.pack(expand=True,fill="both")
 root.mainloop()
