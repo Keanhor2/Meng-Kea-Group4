@@ -1,14 +1,13 @@
 import tkinter as tk
-from tkinter import *
-root=Tk()
+root=tk.Tk()
 # Adjust size
 root.geometry("1820x700")
-frame=Frame()
-canvas=Canvas(frame)
+frame=tk.Frame()
+canvas=tk.Canvas(frame)
 # Create Canvas
-canvas =Canvas( root, width = 900,height = 900)
+canvas =tk.Canvas( root, width = 900,height = 900)
 # Add image file
-bg = PhotoImage(file = "images/My_bg.png")
+bg = tk.PhotoImage(file = "images/My_bg.png")
 # Display image
 canvas.create_image( 0, 0, image =bg,anchor = "nw")
 # canvas.pack(fill = "both", expand = True)
@@ -59,6 +58,7 @@ def findCol(array):
                 if array[row][col]==1:
                     return col
 def moveRight(event):
+    
     Row=findRow(grid)
     Col=findCol(grid)
     if Col+1< len(grid[Row]):
