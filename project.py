@@ -100,11 +100,6 @@ def moveRight(event):
             grid[Row1][Col1]=0
             grid[Row1][Col1+1]=1
             Score+=1
-        elif grid[Row1][Col1+1] ==3:
-            grid[Row1][Col1]=0
-            grid[Row1][Col1+1]=3
-            Score+=1
-            canvas.create_image(55,32,image=myEnemy)
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
     drawGrid()
     print(Score)
