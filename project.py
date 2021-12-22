@@ -1,6 +1,8 @@
 
+from os import get_terminal_size
 import tkinter as tk
 from tkinter import *
+import random
 root=Tk()
 # Adjust size
 root.geometry("1820x700")
@@ -27,6 +29,11 @@ grid=[
     [0,0,3,0,0,2,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0]
 ]
+
+def displayHelloWorld():
+    for i in range(10):
+        canvas.create_image(55,32,image=myEnemy)
+canvas.after(1000, lambda:displayHelloWorld())
 def drawGrid():
     y1=15
     y2=75
@@ -40,10 +47,9 @@ def drawGrid():
                 canvas.create_rectangle(x1,y1,x2,y2,)
             elif grid[elements][values]==1:
                 canvas.create_image(x2-55,y2-32,image=Mario)
-                
             elif grid[elements][values]==2:
                 canvas.create_image(x2-50,y2-30,image=Diamond)
-            else:
+            elif grid[elements][values]==3:
                 canvas.create_image(x2-55,y2-32,image=myEnemy)
         y1=y2
         y2+=65
@@ -94,6 +100,11 @@ def moveRight(event):
             grid[Row1][Col1]=0
             grid[Row1][Col1+1]=1
             Score+=1
+        elif grid[Row1][Col1+1] ==3:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1+1]=3
+            Score+=1
+            canvas.create_image(55,32,image=myEnemy)
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
     drawGrid()
     print(Score)
