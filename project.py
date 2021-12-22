@@ -1,13 +1,20 @@
 import tkinter as tk
-import random
-root=tk.Tk()
-root.geometry("800x800")
-frame=tk.Frame()
-frame.master.title("Friends Help")
-canvas=tk.Canvas(frame)
+from tkinter import *
+root=Tk()
+# Adjust size
+root.geometry("1920x600")
+frame=Frame()
+canvas=Canvas(frame)
+# Create Canvas
+canvas =Canvas( root, width = 900,height = 900)
+# Add image file
+bg = PhotoImage(file = "images/NaturalBG.png")
+# Display image
+canvas.create_image( 0, 0, image =bg,anchor = "nw")
+# canvas.pack(fill = "both", expand = True)
+# frame.master.title("Friends Help")
 Mario=tk.PhotoImage(file="images\mario.png")
-Diamond=tk.PhotoImage(file="images\diamond.png")
-colors=["red","yellow","blue","green","purple","pink"]
+Diamond=tk.PhotoImage(file="images\purpleDiamond.png")
 grid=[
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,2,0,0],
@@ -20,27 +27,26 @@ grid=[
     [0,0,0,0,0,2,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0]
 ]
+mario= canvas.create_image(55,32,image=Mario)
 def drawGrid():
-    y1=10
-    y2=70
-    x1=40
-    x2=100
+    y1=15
+    y2=75
+    x1=10
+    x2=110
     for elements in range(len(grid)):
         for values in range(len(grid[elements])):
             x1=x2
-            x2+=60
+            x2+=100
             if grid[elements][values]==0:
-                canvas.create_rectangle(x1,y1,x2,y2,fill="white")
+                canvas.create_rectangle(x1,y1,x2,y2,outline="")
             elif grid[elements][values]==2:
-                canvas.create_rectangle(x1,y1,x2,y2,fill=random.choice(colors))
-                canvas.create_image(x2-27,y2-27,image=Diamond)
-            else:
-                canvas.create_rectangle(x1,y1,x2,y2,fill=random.choice(colors))
-                canvas.create_image(x2-27,y2-27,image=Mario)
+                canvas.create_image(x2-50,y2-30,image=Diamond)
+            # else:
+            #     mario= canvas.create_image(x2-55,y2-32,image=Mario)
         y1=y2
-        y2+=60
-        x1=40
-        x2=100
+        y2+=65
+        x1=10
+        x2=110
 drawGrid()
 def findRow(array):
     for row in range(len(array)):
@@ -53,34 +59,38 @@ def findCol(array):
                 if array[row][col]==1:
                     return col
 def moveRight(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
-    if Col+1< len(grid[Row]):
-        grid[Row][Col]=0
-        grid[Row][Col+1]=1
-    drawGrid()
+    # Row=findRow(grid)
+    # Col=findCol(grid)
+    # if Col+1< len(grid[Row]):
+    #     grid[Row][Col+1]=1 
+    #     grid[Row][Col]=0
+    # drawGrid()
+    canvas.move(mario,20,0)
 
 def moveLeft(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
-    if Col>0:
-        grid[Row][Col]=0
-        grid[Row][Col-1]=1
-    drawGrid()
+    # Row=findRow(grid)
+    # Col=findCol(grid)
+    # if Col>0:
+    #     grid[Row][Col-1]=1
+    #     grid[Row][Col]=0
+    # drawGrid()
+    canvas.move(mario,-20,0)
 
 def moveUp(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
-    if Row>0:
-        grid[Row][Col]=0
-        grid[Row-1][Col]=1
-    drawGrid()
+    # Row=findRow(grid)
+    # Col=findCol(grid)
+    # if Row>0:
+    #     grid[Row-1][Col]=1
+    #     grid[Row][Col]=0
+    # drawGrid()
+    canvas.move(mario,0,-20)
 def moveDown(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
-    if Row+1< len(grid[Row]):
-        grid[Row][Col]=0
-        grid[Row+1][Col]=1
+    # Row=findRow(grid)
+    # Col=findCol(grid)
+    # if Row+1< len(grid[Row]):
+    #     grid[Row+1][Col]=1
+    #     grid[Row][Col]=0
+    canvas.move(mario,0,20)
     drawGrid()
 root.bind("<Down>",moveDown)
 root.bind("<Up>",moveUp)
