@@ -1,5 +1,6 @@
 import tkinter as tk
 root=tk.Tk()
+
 # Adjust size
 root.geometry("1820x700")
 frame=tk.Frame()
@@ -9,11 +10,14 @@ canvas =tk.Canvas( root, width = 900,height = 900)
 # Add image file
 bg = tk.PhotoImage(file = "images/My_bg.png")
 # Display image
-canvas.create_image( 0, 0, image =bg,anchor = "nw")
-# canvas.pack(fill = "both", expand = True)
-# frame.master.title("Friends Help")
+canvas.create_image( 0, 0, image =bg)
+frame.master.title("Friends Help")
 Mario=tk.PhotoImage(file="images\mario.png")
 Diamond=tk.PhotoImage(file="images\purpleDiamond.png")
+banner = tk.PhotoImage(file = "Images\Game.png")
+canvas.create_image(0,0,image=banner,anchor="nw")
+# button start to play
+
 grid=[
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,2,0,0],
@@ -26,8 +30,13 @@ grid=[
     [0,0,0,0,0,2,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0]
 ]
-# mario= canvas.create_image(x2-55,y2-32,image=Mario)
+
+def displayInterface(event):
+    drawGrid()
+
 def drawGrid():
+    canvas.delete("all")
+    canvas.create_image( 0, 0, image =bg)
     y1=15
     y2=75
     x1=10
@@ -37,17 +46,29 @@ def drawGrid():
             x1=x2
             x2+=100
             if grid[elements][values]==1:
-                canvas.create_image(x2-55,y2-32,image=Mario)
+                canvas.create_image(x2-55,y2-32,image=Mario,tags="play")
                 
             elif grid[elements][values]==2:
                 canvas.create_image(x2-50,y2-30,image=Diamond)
             else:
                 canvas.create_rectangle(x1,y1,x2,y2,)
+            
         y1=y2
         y2+=65
         x1=10
         x2=110
-drawGrid()
+
+def deplay():
+    drawGrid()
+def displayButton():
+    my_button = tk.Button(root,text="Play",command=deplay)
+    my_button.config(width=7,height=1,bg="red",fg="yellow",font=("Arial",20,"bold"))
+    my_button_canvas = canvas.create_window(650, 458, anchor = "nw", window =my_button,tags="button")
+    # #button exit --------------------- 
+    my_button = tk.Button(root,text="Exit",command=root.destroy)
+    my_button.config(width=7,height=1,bg="red",fg="yellow",font=("Arial",20,"bold"))
+    my_button_canvas = canvas.create_window(650, 520, anchor = "nw", window =my_button)
+displayButton()
 def findRow(array):
     for row in range(len(array)):
         if 1 in array[row]:
@@ -79,8 +100,8 @@ def CollectDiamond():
         number+=1
         print(number)
     drawGrid()
+#move right---------------------
 def moveRight(event):
-    
     Row=findRow(grid)
     Col=findCol(grid)
     canvas.delete("all")
@@ -90,8 +111,7 @@ def moveRight(event):
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
     CollectDiamond()
     drawGrid()
-    # canvas.move(mario,20,0)
-
+#move left-----------------------
 def moveLeft(event):
     Row=findRow(grid)
     Col=findCol(grid)
@@ -102,7 +122,7 @@ def moveLeft(event):
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
     CollectDiamond()
     drawGrid()
-    # canvas.move(mario,-20,0)
+#move up------------------------------
 def moveUp(event):
     Row=findRow(grid)
     Col=findCol(grid)
@@ -113,7 +133,7 @@ def moveUp(event):
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
     CollectDiamond()
     drawGrid()
-    # canvas.move(mario,0,-20)
+# move Down----------------------------
 def moveDown(event):
     Row=findRow(grid)
     Col=findCol(grid)
@@ -123,8 +143,8 @@ def moveDown(event):
         grid[Row+1][Col]=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
     CollectDiamond()
-    # canvas.move(mario,0,20)
     drawGrid()
+root.bind("<Button-1>",displayInterface)
 root.bind("<Down>",moveDown)
 root.bind("<Up>",moveUp)
 root.bind("<Left>", moveLeft)
