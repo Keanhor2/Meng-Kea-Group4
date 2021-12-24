@@ -2,7 +2,6 @@
 import tkinter as tk
 import winsound
 root = tk.Tk()
-
 # Adjust size
 root.geometry("1820x700")
 frame = tk.Frame()
@@ -10,7 +9,7 @@ canvas = tk.Canvas(frame)
 # background interface-----------------------
 bg = tk.PhotoImage(file="images/My_bg.png")
 canvas.create_image(0, 0, image=bg, anchor="nw")
-
+# sound---------------------------------------------------
 startMusic=winsound .PlaySound("Sound\StartGame.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
 # title of frame-----------------------
 frame.master.title("Friends Help")
@@ -20,7 +19,14 @@ myEnemy = tk.PhotoImage(file="images\enemy.png")
 # banner slide show -----------------
 banner = tk.PhotoImage(file="Images\Game.png")
 canvas.create_image(0, 0, image=banner, anchor="nw")
-Lost=tk.Text(root)
+
+
+# ------------------------Number 0 empty------------------------------------------
+# ------------------------Number 1 Player------------------------------------------
+# ------------------------Number 2 Diamond------------------------------------------
+# ------------------------Number 3 Monster------------------------------------------
+
+# grid of game-----------------------
 grid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 3, 0, 0, 0, 0, 0, 2, 0, 0],
@@ -34,7 +40,7 @@ grid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-
+# Function drawGrid---------------------------
 def drawGrid():
     canvas.delete("all")
     canvas.create_image(0, 0, image=bg,anchor="nw")
@@ -62,17 +68,20 @@ def drawGrid():
                 canvas.create_image(x2-50, y2-30, image=Diamond)
             elif grid[elements][values] == 3:
                 canvas.create_image(x2-55, y2-32, image=myEnemy)
+                
         y1 = y2
         y2 += 65
         x1 = 10
         x2 = 110
 
-
+# display interface ----------------------------------------------
 def deplay():
+    global startMusic
     drawGrid()
-
+    startMusic=winsound .PlaySound("Sound\Click.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
 
 def displayButton():
+    # button start to play
     my_button = tk.Button(root, text="Play", command=deplay)
     my_button.config(width=7, height=1, bg="#007EE9",fg="yellow",border="5", font=("Arial", 20, "bold"))
     my_button_canvas = canvas.create_window(630, 450, anchor="nw", window=my_button, tags="button")
@@ -124,12 +133,8 @@ def findColOfEnemy(array):
             for col in range(len(array[row])):
                 if array[row][col] == 3:
                     return col
-
-
 # move right---------------------
 Score = 0
-
-
 def moveRight(event):
     global Score,startMusic
     Row1 = findRow(grid)
@@ -139,6 +144,7 @@ def moveRight(event):
         if grid[Row1][Col1+1] == 0:
             grid[Row1][Col1] = 0
             grid[Row1][Col1+1] = 1
+            startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
         elif grid[Row1][Col1+1] == 2:
             startMusic=winsound .PlaySound("Sound\CatchDiamond.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
             grid[Row1][Col1] = 0
@@ -151,12 +157,7 @@ def moveRight(event):
     canvas.create_image(0, 0, image=bg, anchor="nw")
     drawGrid()
     print(Score)
-
-
-
 # move left-----------------------
-
-
 def moveLeft(event):
     global Score,startMusic
     Row1 = findRow(grid)
@@ -166,6 +167,7 @@ def moveLeft(event):
         if grid[Row1][Col1-1] == 0:
             grid[Row1][Col1] = 0
             grid[Row1][Col1-1] = 1
+            startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
         elif grid[Row1][Col1-1] == 2:
             startMusic=winsound .PlaySound("Sound\CatchDiamond.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
             grid[Row1][Col1] = 0
@@ -175,12 +177,12 @@ def moveLeft(event):
             startMusic=winsound .PlaySound("Sound\TouchMonster.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
             grid[Row1][Col1] = 0
             grid[Row1][Col1-1] = 1
+
     canvas.create_image(0, 0, image=bg, anchor="nw")
     drawGrid()
     print(Score)
 
 # move up------------------------------
-
 
 def moveUp(event):
     global Score,startMusic
@@ -191,6 +193,7 @@ def moveUp(event):
         if grid[Row1-1][Col1] == 0:
             grid[Row1][Col1] = 0
             grid[Row1-1][Col1] = 1
+            startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
         elif grid[Row1-1][Col1] == 2:
             startMusic=winsound .PlaySound("Sound\CatchDiamond.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
             grid[Row1][Col1] = 0
@@ -218,6 +221,7 @@ def moveDown(event):
         if grid[Row1+1][Col1] == 0:
             grid[Row1][Col1] = 0
             grid[Row1+1][Col1] = 1
+            startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
         elif grid[Row1+1][Col1] == 2:
             startMusic=winsound .PlaySound("Sound\CatchDiamond.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
             grid[Row1][Col1] = 0
