@@ -1,42 +1,37 @@
+
 import tkinter as tk
 root=tk.Tk()
-
 # Adjust size
 root.geometry("1820x700")
 frame=tk.Frame()
 canvas=tk.Canvas(frame)
-# Create Canvas
-canvas =tk.Canvas( root, width = 900,height = 900)
-# Add image file
+#background interface-----------------------
 bg = tk.PhotoImage(file = "images/My_bg.png")
-# Display image
-canvas.create_image( 0, 0, image =bg)
+canvas.create_image( 10, 20, image =bg)
+# title of frame-----------------------
 frame.master.title("Friends Help")
 Mario=tk.PhotoImage(file="images\mario.png")
 Diamond=tk.PhotoImage(file="images\purpleDiamond.png")
+myEnemy=tk.PhotoImage(file="images\enemy.png")
+# banner slide show -----------------
 banner = tk.PhotoImage(file = "Images\Game.png")
 canvas.create_image(0,0,image=banner,anchor="nw")
-# button start to play
-
 grid=[
     [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,2,0,0],
-    [0,0,2,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
+    [0,3,0,0,0,0,0,2,0,0],
+    [0,0,0,2,0,0,0,0,0,0],
+    [0,0,0,3,0,0,0,0,0,0],
     [0,0,0,0,0,1,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,3,0,0,0,0],
     [2,0,0,0,0,0,0,0,2,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,2,0,0,0,0],
+    [0,0,0,0,0,0,0,3,0,0],
+    [0,0,3,0,0,2,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0]
 ]
 
-def displayInterface(event):
-    drawGrid()
-
 def drawGrid():
     canvas.delete("all")
-    canvas.create_image( 0, 0, image =bg)
+    canvas.create_image( 0,0, image =bg)
     y1=15
     y2=75
     x1=10
@@ -53,6 +48,14 @@ def drawGrid():
             else:
                 canvas.create_rectangle(x1,y1,x2,y2,)
             
+            if grid[elements][values]==0:
+                canvas.create_rectangle(x1,y1,x2,y2,)
+            elif grid[elements][values]==1:
+                canvas.create_image(x2-55,y2-32,image=Mario)
+            elif grid[elements][values]==2:
+                canvas.create_image(x2-50,y2-30,image=Diamond)
+            elif grid[elements][values]==3:
+                canvas.create_image(x2-55,y2-32,image=myEnemy)
         y1=y2
         y2+=65
         x1=10
@@ -69,10 +72,13 @@ def displayButton():
     my_button.config(width=7,height=1,bg="red",fg="yellow",font=("Arial",20,"bold"))
     my_button_canvas = canvas.create_window(650, 520, anchor = "nw", window =my_button)
 displayButton()
+
+#find row ------------------------------------------------
 def findRow(array):
     for row in range(len(array)):
         if 1 in array[row]:
             return row
+
 def findCol(array):
     for row in range(len(array)):
         if 1 in array[row]:
@@ -89,62 +95,137 @@ def findColDiamond(array):
             for col in range(len(array[row])):
                 if array[row][col]==2:
                     return col
-number=0
-def CollectDiamond():
-    global number
+def findRowOfEnemy(array):
+    for row in range(len(array)):
+        if 3 in array[row]:
+            return row
+def findColOfEnemy(array):
+    for row in range(len(array)):
+        if 3 in array[row]:
+            for col in range(len(array[row])):
+                if array[row][col]==3:
+                    return col
+#move right---------------------
+Score=0
+def moveRight(event):
+    global Score
     Row1=findRow(grid)
     Col1=findCol(grid)
-    Row2=findRowDiamond(grid)
-    Col2=findColDiamond(grid)
-    if grid[Row1][Col1]==grid[Row2][Col2]:
-        number+=1
-        print(number)
-    drawGrid()
-#move right---------------------
-def moveRight(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
     canvas.delete("all")
-    if Col+1< len(grid[Row]):
-        grid[Row][Col]=0
-        grid[Row][Col+1]=1
+    if Col1+1< len(grid[Row1]):
+        if grid[Row1][Col1+1] ==0:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1+1]=1
+        elif grid[Row1][Col1+1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1+1]=1
+            Score+=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
-    CollectDiamond()
+    drawGrid()
+
+def RightDiamond(event):
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
+    canvas.delete("all")
+    if Col1+1< len(grid[Row1]):
+        if grid[Row1][Col1+1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1+1]=1
+            Score+=1
+    canvas.create_image( 0, 0, image =bg,anchor = "nw")
     drawGrid()
 #move left-----------------------
+    print(Score)
 def moveLeft(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
     canvas.delete("all")
-    if Col>0:
-        grid[Row][Col]=0
-        grid[Row][Col-1]=1
+    if Col1>0:
+        if grid[Row1][Col1-1] ==0:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1-1]=1
+        elif grid[Row1][Col1-1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1-1]=1
+            Score+=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
-    CollectDiamond()
+    drawGrid()
+    print(Score)
+def LeftDiamond(event):
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
+    canvas.delete("all")
+    if Col1>0:
+        if grid[Row1][Col1-1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1][Col1-1]=1
+            Score+=1
+    canvas.create_image( 0, 0, image =bg,anchor = "nw")
     drawGrid()
 #move up------------------------------
+    print(Score)
 def moveUp(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
     canvas.delete("all")
-    if Row>0:
-        grid[Row][Col]=0
-        grid[Row-1][Col]=1
+    if Row1>0:
+        if grid[Row1-1][Col1] ==0:
+            grid[Row1][Col1]=0
+            grid[Row1-1][Col1]=1
+        elif grid[Row1-1][Col1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1-1][Col1]=1
+            Score+=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
-    CollectDiamond()
+    drawGrid()
+    print(Score)
+def UpDiamond(event):
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
+    canvas.delete("all")
+    if Row1>0:
+        if grid[Row1-1][Col1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1-1][Col1]=1
+            Score+=1
+    canvas.create_image( 0, 0, image =bg,anchor = "nw")
     drawGrid()
 # move Down----------------------------
+    print(Score)
 def moveDown(event):
-    Row=findRow(grid)
-    Col=findCol(grid)
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
     canvas.delete("all")
-    if Row+1< len(grid[Row]):
-        grid[Row][Col]=0
-        grid[Row+1][Col]=1
+    if Row1+1< len(grid[Row1]):
+        if grid[Row1+1][Col1] ==0:
+            grid[Row1][Col1]=0
+            grid[Row1+1][Col1]=1
+        elif grid[Row1+1][Col1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1+1][Col1]=1
+            Score+=1
     canvas.create_image( 0, 0, image =bg,anchor = "nw")
-    CollectDiamond()
     drawGrid()
-root.bind("<Button-1>",displayInterface)
+    print(Score)
+def DownDiamond(event):
+    global Score
+    Row1=findRow(grid)
+    Col1=findCol(grid)
+    canvas.delete("all")
+    if Row1+1< len(grid[Row1]):
+        if grid[Row1+1][Col1] ==2:
+            grid[Row1][Col1]=0
+            grid[Row1+1][Col1]=1
+            Score+=1
+    canvas.create_image( 0, 0, image =bg,anchor = "nw")
+    drawGrid()
+    print(Score)
 root.bind("<Down>",moveDown)
 root.bind("<Up>",moveUp)
 root.bind("<Left>", moveLeft)
