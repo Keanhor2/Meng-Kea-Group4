@@ -66,7 +66,6 @@ def drawGrid():
 def deplay():
     drawGrid()
 def displayButton():
-    # button start to play
     my_button = tk.Button(root, text="Play", command=deplay)
     my_button.config(width=7, height=1, bg="#007EE9",fg="yellow",border="5", font=("Arial", 20, "bold"))
     my_button_canvas = canvas.create_window(630, 450, anchor="nw", window=my_button, tags="button")
@@ -117,15 +116,6 @@ def WinGame():
     isGameWin = True
     canvas.create_text(660,300,text="You Win!!",font=("",60),fill="red")
     WinGame()
-values=0
-def ZeroOfGrid():
-    global values
-    for row in range(len(grid)):
-        for col in range(len(grid[row])):
-            values+=grid[row][col]
-            if values==0:
-                WinGame()
-ZeroOfGrid()
 def moveRight(event):
     global isGameOver, isGameWin,Score,startMusic
     if isGameOver == False and isGameWin==False:
