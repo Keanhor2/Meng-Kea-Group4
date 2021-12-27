@@ -1,7 +1,7 @@
 from os import terminal_size
 import tkinter as tk
 from tkinter.constants import END, S
-from typing import Text
+from typing import Counter, Text
 import winsound
 root = tk.Tk()
 # ===============Adjust size--------------------------
@@ -176,38 +176,57 @@ def drawGrid():
                 x1 = 10
                 x2 = 110
             displayScore()
-    elif level==2:
-        if isGameOver == False and isGameWin==False:
-            canvas.delete("all")
-            canvas.create_image(0, 0, image=bg,anchor="nw")
-            y1 = 15
-            y2 = 75
-            x1 = 10
-            x2 = 110
-            for elements in range(len(grid1)):
-                for values in range(len(grid1[elements])):
-                    x1 = x2
-                    x2 += 100
-                    if grid1[elements][values] == 1:
-                        canvas.create_image(x2-55, y2-32, image=Mario, tags="play")
-                    elif grid1[elements][values] == 2:
-                        canvas.create_image(x2-50, y2-30, image=Diamond)
-                    else:
-                        canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
-                    if grid1[elements][values] == 0:
-                        canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
-                    elif grid1[elements][values] == 1:
-                        canvas.create_image(x2-55, y2-32, image=Mario)
-                    elif grid1[elements][values] == 2:
-                        canvas.create_image(x2-50, y2-30, image=Diamond)
-                    elif grid1[elements][values] == 3:
-                        canvas.create_image(x2-55, y2-32, image=myEnemy)
-                y1 = y2
-                y2 += 65
-                x1 = 10
-                x2 = 110
-            displayScore()
+    # elif level==2:
+    #     if isGameOver == False and isGameWin==False:
+    #         canvas.delete("all")
+    #         canvas.create_image(0, 0, image=bg,anchor="nw")
+    #         y1 = 15
+    #         y2 = 75
+    #         x1 = 10
+    #         x2 = 110
+    #         for elements in range(len(grid1)):
+    #             for values in range(len(grid1[elements])):
+    #                 x1 = x2
+    #                 x2 += 100
+    #                 if grid1[elements][values] == 1:
+    #                     canvas.create_image(x2-55, y2-32, image=Mario, tags="play")
+    #                 elif grid1[elements][values] == 2:
+    #                     canvas.create_image(x2-50, y2-30, image=Diamond)
+    #                 else:
+    #                     canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
+    #                 if grid1[elements][values] == 0:
+    #                     canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
+    #                 elif grid1[elements][values] == 1:
+    #                     canvas.create_image(x2-55, y2-32, image=Mario)
+    #                 elif grid1[elements][values] == 2:
+    #                     canvas.create_image(x2-50, y2-30, image=Diamond)
+    #                 elif grid1[elements][values] == 3:
+    #                     canvas.create_image(x2-55, y2-32, image=myEnemy)
+    #             y1 = y2
+    #             y2 += 65
+    #             x1 = 10
+    #             x2 = 110
+    #         displayScore()
+    # ============Count down timer========================
+def button_countdown(i, label):
+    if i > 0:
+        i -= 1
+        label.set(i)
+        root.after(1000, lambda: button_countdown(i, label))
+    else:
+        close()
+def close():
+    if Score<5:
+        LostGame()
+    else:
+        WinGame()
+counter = 60
+button_label = tk.StringVar()
+button_label.set(counter)
+tk.Button(root, textvariable=button_label, command=close).pack()
+    
 def deplay():
+    button_countdown(counter, button_label)
     drawGrid()
 def displayButton():
     # button start to play
@@ -264,7 +283,7 @@ def WinGame():
 def displayScore():
     global level,Score
     canvas.create_text(1200,100,text="Level",font=("",20),fill="black")
-    myLevel=canvas.create_text(1250,10,text=level,font=("",20),fill="black")
+    myLevel=canvas.create_text(1250,100,text=level,font=("",20),fill="black")
     if level==1 and Score==5:
         level+=1
         canvas.itemconfig(myLevel,text=level)
@@ -280,7 +299,7 @@ def moveRight(event):
         Row1 = findRow(grid)
         Col1 = findCol(grid)
         canvas.delete("all")
-        if Col1+1 < len(grid[Row1]) :
+        if Col1+1 < len(grid[Col1]) :
             if grid[Row1][Col1+1] ==0 and Score<5:
                 startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
@@ -306,7 +325,7 @@ def moveLeft(event):
         Row1 = findRow(grid)
         Col1 = findCol(grid)
         canvas.delete("all")
-        if Col1 > 0  :
+        if Col1-1 > -1  :
             if grid[Row1][Col1-1] == 0 and Score<5:
                 startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
@@ -333,7 +352,7 @@ def moveUp(event):
         Row1 = findRow(grid)
         Col1 = findCol(grid)
         canvas.delete("all")
-        if Row1 > 0 :
+        if Row1-1 > -1 :
             if grid[Row1-1][Col1] == 0 and Score<5:
                 startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
