@@ -20,52 +20,193 @@ myEnemy = tk.PhotoImage(file="images\enemy.png")
 # ======================banner slide show -----------------
 banner = tk.PhotoImage(file="Images\Game.png")
 canvas.create_image(0, 0, image=banner, anchor="nw")
+level=1
 grid = [
-    [0, 0, 0, 0, 3, 1, 0, 0, 0, 0],
-    [0, 3, 0, 0, 0, 3, 0, 3, 0, 0],
-    [0, 0, 0, 3, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 3, 0, 0, 0, 2, 0, 3],
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+grid1 = [
+    [0, 0, 0, 3, 3, 3, 3, 0, 0, 1],
+    [0, 0, 0, 0, 2, 3, 0, 0, 3, 3],
+    [0, 0, 0, 3, 3, 3, 0, 3, 0, 2],
+    [0, 3, 0, 0, 0, 0, 0, 3, 3, 0],
+    [0, 0, 3, 3, 3, 0, 3, 2, 3, 0],
+    [0, 0, 0, 0, 3, 0, 0, 0, 3, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 3, 0],
-    [3, 2, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 3, 0, 0, 0, 2, 0, 0, 0],
-    [0, 3, 2, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+    [0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 3, 0, 3, 3, 0, 3],
+    [0, 0, 0, 0, 3, 0, 2, 3, 0, 2]
+]
+grid2 = [
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+grid3 = [
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+grid4 = [
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+grid5 = [
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+grid6 = [
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+grid7 = [
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+grid8 = [
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+grid9 = [
+    [3, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+    [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 3, 0, 0, 0, 0],
+    [3, 0, 2, 3, 0, 3, 0, 0, 0, 0],
+    [2, 3, 3, 0, 0, 3, 0, 0, 0, 0],
+    [2, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 isGameOver = False
 isGameWin=False
 def drawGrid():
     global isGameOver,isGameWin
-    if isGameOver == False and isGameWin==False:
-        canvas.delete("all")
-        canvas.create_image(0, 0, image=bg,anchor="nw")
-        y1 = 15
-        y2 = 75
-        x1 = 10
-        x2 = 110
-        for elements in range(len(grid)):
-            for values in range(len(grid[elements])):
-                x1 = x2
-                x2 += 100
-                if grid[elements][values] == 1:
-                    canvas.create_image(x2-55, y2-32, image=Mario, tags="play")
-                elif grid[elements][values] == 2:
-                    canvas.create_image(x2-50, y2-30, image=Diamond)
-                else:
-                    canvas.create_rectangle(x1, y1, x2, y2,)
-                if grid[elements][values] == 0:
-                    canvas.create_rectangle(x1, y1, x2, y2,)
-                elif grid[elements][values] == 1:
-                    canvas.create_image(x2-55, y2-32, image=Mario)
-                elif grid[elements][values] == 2:
-                    canvas.create_image(x2-50, y2-30, image=Diamond)
-                elif grid[elements][values] == 3:
-                    canvas.create_image(x2-55, y2-32, image=myEnemy)
-            y1 = y2
-            y2 += 65
+    if level==1:
+        if isGameOver == False and isGameWin==False:
+            canvas.delete("all")
+            canvas.create_image(0, 0, image=bg,anchor="nw")
+            y1 = 15
+            y2 = 75
             x1 = 10
             x2 = 110
-        displayScore()
+            for elements in range(len(grid)):
+                for values in range(len(grid[elements])):
+                    x1 = x2
+                    x2 += 100
+                    if grid[elements][values] == 1:
+                        canvas.create_image(x2-55, y2-32, image=Mario, tags="play")
+                    elif grid[elements][values] == 2:
+                        canvas.create_image(x2-50, y2-30, image=Diamond)
+                    else:
+                        canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
+                    if grid[elements][values] == 0:
+                        canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
+                    elif grid[elements][values] == 1:
+                        canvas.create_image(x2-55, y2-32, image=Mario)
+                    elif grid[elements][values] == 2:
+                        canvas.create_image(x2-50, y2-30, image=Diamond)
+                    elif grid[elements][values] == 3:
+                        canvas.create_image(x2-55, y2-32, image=myEnemy)
+                y1 = y2
+                y2 += 65
+                x1 = 10
+                x2 = 110
+            displayScore()
+    elif level==2:
+        if isGameOver == False and isGameWin==False:
+            canvas.delete("all")
+            canvas.create_image(0, 0, image=bg,anchor="nw")
+            y1 = 15
+            y2 = 75
+            x1 = 10
+            x2 = 110
+            for elements in range(len(grid1)):
+                for values in range(len(grid1[elements])):
+                    x1 = x2
+                    x2 += 100
+                    if grid1[elements][values] == 1:
+                        canvas.create_image(x2-55, y2-32, image=Mario, tags="play")
+                    elif grid1[elements][values] == 2:
+                        canvas.create_image(x2-50, y2-30, image=Diamond)
+                    else:
+                        canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
+                    if grid1[elements][values] == 0:
+                        canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
+                    elif grid1[elements][values] == 1:
+                        canvas.create_image(x2-55, y2-32, image=Mario)
+                    elif grid1[elements][values] == 2:
+                        canvas.create_image(x2-50, y2-30, image=Diamond)
+                    elif grid1[elements][values] == 3:
+                        canvas.create_image(x2-55, y2-32, image=myEnemy)
+                y1 = y2
+                y2 += 65
+                x1 = 10
+                x2 = 110
+            displayScore()
 def deplay():
     drawGrid()
 def displayButton():
@@ -99,16 +240,6 @@ def findColDiamond(array):
             for col in range(len(array[row])):
                 if array[row][col] == 2:
                     return col
-def row_No_Diamond(array):
-    for row in range(len(array)):
-        if 2 not in array[row]:
-            return row
-def col_No_Diamond(array):
-    for row in range(len(array)):
-        if 2 not in array[row]:
-            for col in range(len(array[row])):
-                if array[row][col] !=2:
-                    return col
 def findRowOfEnemy(array):
     for row in range(len(array)):
         if 3 in array[row]:
@@ -131,7 +262,12 @@ def WinGame():
     canvas.create_text(660,300,text="You Win!!",font=("",60),fill="red")
     WinGame()
 def displayScore():
-    global Score,grid
+    global level,Score
+    canvas.create_text(1200,100,text="Level",font=("",20),fill="black")
+    myLevel=canvas.create_text(1250,10,text=level,font=("",20),fill="black")
+    if level==1 and Score==5:
+        level+=1
+        canvas.itemconfig(myLevel,text=level)
     canvas.create_text(1200,200,text="Score",font=("",20),fill="black")
     myText=canvas.create_text(1300,200,text=Score,font=("",20),fill="red")
     if grid==2:
@@ -143,8 +279,6 @@ def moveRight(event):
     if isGameOver == False and isGameWin==False:
         Row1 = findRow(grid)
         Col1 = findCol(grid)
-        # R_N_Diamond=row_No_Diamond()
-        # C_N_Diamond=col_No_Diamond()
         canvas.delete("all")
         if Col1+1 < len(grid[Row1]) :
             if grid[Row1][Col1+1] ==0 and Score<5:
@@ -159,7 +293,6 @@ def moveRight(event):
             elif grid[Row1][Col1+1] == 3 :
                 startMusic=winsound .PlaySound("Sound\lost1.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
-                # grid[Row1][Col1+1] = 1
                 LostGame()
             elif grid[Row1][Col1+1] ==0 and Score==5:
                 grid[Row1][Col1] = 0
