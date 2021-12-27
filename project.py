@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter.constants import END
+from tkinter.constants import END, S
 import winsound
 root = tk.Tk()
 # ===============Adjust size--------------------------
@@ -96,6 +96,16 @@ def findColDiamond(array):
             for col in range(len(array[row])):
                 if array[row][col] == 2:
                     return col
+def row_No_Diamond(array):
+    for row in range(len(array)):
+        if 2 not in array[row]:
+            return row
+def col_No_Diamond(array):
+    for row in range(len(array)):
+        if 2 not in array[row]:
+            for col in range(len(array[row])):
+                if array[row][col] !=2:
+                    return col
 def findRowOfEnemy(array):
     for row in range(len(array)):
         if 3 in array[row]:
@@ -113,27 +123,21 @@ def LostGame():
     LostGame()
 Score = 0
 def WinGame():
-    global isGameWin
+    global isGameWin,Score
     isGameWin = True
     canvas.create_text(660,300,text="You Win!!",font=("",60),fill="red")
     WinGame()
-values=0
-def ZeroOfGrid():
-    global values
-    for row in range(len(grid)):
-        for col in range(len(grid[row])):
-            values+=grid[row][col]
-            if values==0:
-                WinGame()
-ZeroOfGrid()
 def moveRight(event):
     global isGameOver, isGameWin,Score,startMusic
     if isGameOver == False and isGameWin==False:
         Row1 = findRow(grid)
         Col1 = findCol(grid)
+        # R_N_Diamond=row_No_Diamond()
+        # C_N_Diamond=col_No_Diamond()
         canvas.delete("all")
         if Col1+1 < len(grid[Row1]) :
-            if grid[Row1][Col1+1] ==0 :
+            if grid[Row1][Col1+1] ==0 and Score<5:
+                startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
                 grid[Row1][Col1+1] = 1
             elif grid[Row1][Col1+1] == 2 :
@@ -142,10 +146,13 @@ def moveRight(event):
                 grid[Row1][Col1+1] = 1
                 Score += 1
             elif grid[Row1][Col1+1] == 3 :
-                startMusic=winsound .PlaySound("Sound\TouchMonster.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
+                startMusic=winsound .PlaySound("Sound\lost1.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
-                grid[Row1][Col1+1] = 1
+                # grid[Row1][Col1+1] = 1
                 LostGame()
+            elif grid[Row1][Col1+1] ==0 and Score==5:
+                grid[Row1][Col1] = 0
+                WinGame()
         drawGrid()
         print(Score)
 # =================================move left-----------------------
@@ -155,8 +162,9 @@ def moveLeft(event):
         Row1 = findRow(grid)
         Col1 = findCol(grid)
         canvas.delete("all")
-        if Col1 > 0 :
-            if grid[Row1][Col1-1] == 0 :
+        if Col1 > 0  :
+            if grid[Row1][Col1-1] == 0 and Score<5:
+                startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
                 grid[Row1][Col1-1] = 1
             elif grid[Row1][Col1-1] == 2 :
@@ -165,10 +173,13 @@ def moveLeft(event):
                 grid[Row1][Col1-1] = 1
                 Score += 1
             elif grid[Row1][Col1-1] == 3 :
-                startMusic=winsound .PlaySound("Sound\TouchMonster.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
+                startMusic=winsound .PlaySound("Sound\lost1.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
                 grid[Row1][Col1-1] = 1
                 LostGame()
+            elif grid[Row1][Col1-1] == 0 and Score==5:
+                grid[Row1][Col1] = 0
+                WinGame()
         drawGrid()
         print(Score)
 # ===============================move up------------------------------
@@ -179,7 +190,8 @@ def moveUp(event):
         Col1 = findCol(grid)
         canvas.delete("all")
         if Row1 > 0 :
-            if grid[Row1-1][Col1] == 0 :
+            if grid[Row1-1][Col1] == 0 and Score<5:
+                startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
                 grid[Row1-1][Col1] = 1
             elif grid[Row1-1][Col1] == 2 :
@@ -188,10 +200,13 @@ def moveUp(event):
                 grid[Row1-1][Col1] = 1
                 Score += 1
             elif grid[Row1-1][Col1] == 3:
-                startMusic=winsound .PlaySound("Sound\TouchMonster.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
+                startMusic=winsound .PlaySound("Sound\lost1.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
                 grid[Row1-1][Col1] = 1
                 LostGame()
+            elif grid[Row1-1][Col1] == 0 and Score==5:
+                grid[Row1][Col1] = 0
+                WinGame()
         drawGrid()
         print(Score)
 # ==========================move Down----------------------------
@@ -202,7 +217,8 @@ def moveDown(event):
         Col1 = findCol(grid)
         canvas.delete("all")
         if Row1+1 < len(grid[Row1]):
-            if grid[Row1+1][Col1] == 0 :
+            if grid[Row1+1][Col1] == 0 and Score<5:
+                startMusic=winsound .PlaySound("Sound\walk.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
                 grid[Row1+1][Col1] = 1
             elif grid[Row1+1][Col1] == 2 :
@@ -211,10 +227,13 @@ def moveDown(event):
                 grid[Row1+1][Col1] = 1
                 Score += 1
             elif grid[Row1+1][Col1] == 3 :
-                startMusic=winsound .PlaySound("Sound\TouchMonster.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
+                startMusic=winsound .PlaySound("Sound\lost1.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
                 grid[Row1][Col1] = 0
-                grid[Row1+1][Col1] = 1
+                grid[Row1+1][Col1]=1
                 LostGame()
+            elif grid[Row1+1][Col1] == 0 and Score==5:
+                grid[Row1][Col1] = 0
+                WinGame()
         drawGrid()
         print(Score)
 root.bind("<Down>", moveDown)
