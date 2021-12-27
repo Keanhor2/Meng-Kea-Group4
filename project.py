@@ -1,5 +1,7 @@
+from os import terminal_size
 import tkinter as tk
 from tkinter.constants import END, S
+from typing import Text
 import winsound
 root = tk.Tk()
 # ===============Adjust size--------------------------
@@ -63,6 +65,7 @@ def drawGrid():
             y2 += 65
             x1 = 10
             x2 = 110
+        displayScore()
 def deplay():
     drawGrid()
 def displayButton():
@@ -127,6 +130,14 @@ def WinGame():
     isGameWin = True
     canvas.create_text(660,300,text="You Win!!",font=("",60),fill="red")
     WinGame()
+def displayScore():
+    global Score,grid
+    canvas.create_text(1200,200,text="Score",font=("",20),fill="black")
+    myText=canvas.create_text(1300,200,text=Score,font=("",20),fill="red")
+    if grid==2:
+        Score+=1
+        canvas.itemconfig(myText,text=Score)
+    displayScore()
 def moveRight(event):
     global isGameOver, isGameWin,Score,startMusic
     if isGameOver == False and isGameWin==False:
