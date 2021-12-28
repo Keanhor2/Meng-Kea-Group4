@@ -4,9 +4,9 @@ root = tk.Tk()
 root.geometry("1820x750")                        
 frame = tk.Frame()
 canvas = tk.Canvas(frame)
+frame.master.title("Mario Ronan")     
 # ==================================================All Images ============================================================
 bg = tk.PhotoImage(file="images/My_bg.png")     
-frame.master.title("Mario Ronan")     
 Mario = tk.PhotoImage(file="images\mario.png")
 Diamond = tk.PhotoImage(file="images\purpleDiamond.png")
 myEnemy = tk.PhotoImage(file="images\enemy.png") 
@@ -46,12 +46,12 @@ def drawGrid():
                 for values in range(len(grid[elements])):
                     x1 = x2
                     x2 += 100
-                    if grid[elements][values] == 1:
-                        canvas.create_image(x2-55, y2-32, image=Mario, tags="play")
-                    elif grid[elements][values] == 2:
-                        canvas.create_image(x2-50, y2-30, image=Diamond)
-                    else:
-                        canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
+                    # if grid[elements][values] == 1:
+                    #     canvas.create_image(x2-55, y2-32, image=Mario, tags="play")
+                    # elif grid[elements][values] == 2:
+                    #     canvas.create_image(x2-50, y2-30, image=Diamond)
+                    # else:
+                    #     canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
                     if grid[elements][values] == 0:
                         canvas.create_rectangle(x1, y1, x2, y2,outline="orange")
                     elif grid[elements][values] == 1:
