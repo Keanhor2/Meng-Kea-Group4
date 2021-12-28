@@ -4,12 +4,13 @@ root = tk.Tk()
 root.geometry("1820x750")                        
 frame = tk.Frame()
 canvas = tk.Canvas(frame)
+# ==================================================All Images ============================================================
 bg = tk.PhotoImage(file="images/My_bg.png")     
 frame.master.title("Project Game Meng & Kea")     
 Mario = tk.PhotoImage(file="images\mario.png")
 Diamond = tk.PhotoImage(file="images\purpleDiamond.png")
 myEnemy = tk.PhotoImage(file="images\enemy.png") 
-banner = tk.PhotoImage(file="Images\Game.png")
+banner = tk.PhotoImage(file="Images/bannerOfMarioRonan.png")
 canvas.create_image(0, 0, image=banner, anchor="nw")
 # ==================================================All Global Variables==================================================
 grid = [
@@ -24,9 +25,13 @@ grid = [
     [4, 2, 3, 2, 0, 3, 2, 0, 0, 4],
     [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 ]
+counter = 30
+Score = 0
 isGameOver = False
 isGameWin=False
 startMusic=winsound .PlaySound("Sound\StartGame.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
+button_label = tk.StringVar()
+button_label.set(counter)
 # =================================================All Functions=============================================================
 def drawGrid():
         global isGameOver,isGameWin
@@ -62,59 +67,59 @@ def drawGrid():
                 x1 = 10
                 x2 = 110
             displayScore()
-def button_countdown(i, label):
+# =======here is the button for count down the during time to play======================================================
+def buttonCountdown(i, label):
     if i > 0:
         i -= 1
         label.set(i)
-        root.after(1000, lambda: button_countdown(i, label))
+        root.after(1000, lambda: buttonCountdown(i, label))
     else:
         close()
+# ===========here is the funcion for stop count down button =============================================================
 def close():
     if Score<5 or counter==0:
         LostGame()
     elif Score==5 or counter>=0:
         WinGame()
-counter = 30
-button_label = tk.StringVar()
-button_label.set(counter)
 myTimer=tk.Button( textvariable=button_label, command=close).pack()
 canvas.itemconfig(myTimer,text=button_label)
-def deplay():
-    button_countdown(counter, button_label)
+# =========Function for display game after player click on it ================================================================
+def display():
+    buttonCountdown(counter, button_label)# here is used for control the count down time after click on display 
     drawGrid()
 def displayButton():
-    myButton = tk.Button(root, text="Play", command=deplay)
+    myButton = tk.Button(root, text="Play", command=display)
     myButton.config(width=7, height=1, bg="#007EE9",fg="yellow",border="5", font=("Arial", 20, "bold"))
     canvas.create_window(630, 450, anchor="nw", window=myButton, tags="button")
     myButton = tk.Button(root, text="Exit", command=root.destroy)
     myButton.config(width=7, height=1, bg="#007EE9",fg="yellow",border="5",font=("Arial", 20, "bold"))
     canvas.create_window(630, 520, anchor="nw", window=myButton)
 displayButton()
-def findRow(array):
+def findRow(array):  # Find row of Mario===============================
     for row in range(len(array)):
         if 1 in array[row]:
             return row
-def findCol(array):
+def findCol(array):  # Find Column of Mario============================
     for row in range(len(array)):
         if 1 in array[row]:
             for col in range(len(array[row])):
                 if array[row][col] == 1:
                     return col
-def findRowDiamond(array):
+def findRowDiamond(array):  # Find row of diamond ======================
     for row in range(len(array)):
         if 2 in array[row]:
             return row
-def findColDiamond(array):
+def findColDiamond(array):  # Find Column of diamond=====================
     for row in range(len(array)):
         if 2 in array[row]:
             for col in range(len(array[row])):
                 if array[row][col] == 2:
                     return col
-def findRowOfEnemy(array):
+def findRowOfEnemy(array):   # Find row of enemy   ======================
     for row in range(len(array)):
         if 3 in array[row]:
             return row
-def findColOfEnemy(array):
+def findColOfEnemy(array):  # Find Column of enemy========================
     for row in range(len(array)):
         if 3 in array[row]:
             for col in range(len(array[row])):
@@ -125,7 +130,6 @@ def LostGame():
     isGameOver = True
     canvas.create_text(660,300,text="Game Over!!",font=("",60),fill="red")
     LostGame()
-Score = 0
 def WinGame():
     global isGameWin,Score,startMusic
     isGameWin = True
@@ -139,6 +143,7 @@ def displayScore():
         Score+=1
         canvas.itemconfig(myText,text=Score)
     displayScore()
+# ============================================  Tell Mario go right  ====================================================
 def moveRight(event):
     global isGameOver, isGameWin,Score,startMusic
     if isGameOver == False and isGameWin==False:
@@ -164,6 +169,7 @@ def moveRight(event):
                 grid[Row1][Col1] = 0
                 WinGame()             
         drawGrid()
+# ==============================================  Tell Mario go left =========================================================
 def moveLeft(event):
     global Score,startMusic,isGameOver,isGameWin
     if isGameOver == False and isGameWin==False:
@@ -190,6 +196,7 @@ def moveLeft(event):
                 grid[Row1][Col1] = 0
                 WinGame()
         drawGrid()
+# =========================================  Tell Mario go up  ===========================================================
 def moveUp(event):
     global Score,startMusic,isGameOver
     if isGameOver == False and isGameWin==False:
@@ -216,6 +223,7 @@ def moveUp(event):
                 grid[Row1][Col1] = 0
                 WinGame()
         drawGrid()
+# ================================  Tell Mario go down =================================================================
 def moveDown(event):
     global Score,startMusic,isGameOver
     if isGameOver == False and isGameWin==False:
@@ -242,6 +250,7 @@ def moveDown(event):
                 grid[Row1][Col1] = 0
                 WinGame()
         drawGrid()
+# ================================= Key to manage Mario =============================================================
 root.bind("<Down>", moveDown)
 root.bind("<Up>", moveUp)
 root.bind("<Left>", moveLeft)
