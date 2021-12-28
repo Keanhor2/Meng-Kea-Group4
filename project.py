@@ -6,7 +6,7 @@ frame = tk.Frame()
 canvas = tk.Canvas(frame)
 # ==================================================All Images ============================================================
 bg = tk.PhotoImage(file="images/My_bg.png")     
-frame.master.title("Project Game Meng & Kea")     
+frame.master.title("Mario Ronan")     
 Mario = tk.PhotoImage(file="images\mario.png")
 Diamond = tk.PhotoImage(file="images\purpleDiamond.png")
 myEnemy = tk.PhotoImage(file="images\enemy.png") 
@@ -25,7 +25,7 @@ grid = [
     [4, 2, 3, 2, 0, 3, 2, 0, 0, 4],
     [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 ]
-counter = 30
+counter = 25
 Score = 0
 isGameOver = False
 isGameWin=False
@@ -95,31 +95,31 @@ def displayButton():
     myButton.config(width=7, height=1, bg="#007EE9",fg="yellow",border="5",font=("Arial", 20, "bold"))
     canvas.create_window(630, 520, anchor="nw", window=myButton)
 displayButton()
-def findRow(array):  # Find row of Mario===============================
+def findRow(array):               # Find row of Mario===============================
     for row in range(len(array)):
         if 1 in array[row]:
             return row
-def findCol(array):  # Find Column of Mario============================
+def findCol(array):              # Find Column of Mario============================
     for row in range(len(array)):
         if 1 in array[row]:
             for col in range(len(array[row])):
                 if array[row][col] == 1:
                     return col
-def findRowDiamond(array):  # Find row of diamond ======================
+def findRowDiamond(array):       # Find row of diamond ======================
     for row in range(len(array)):
         if 2 in array[row]:
             return row
-def findColDiamond(array):  # Find Column of diamond=====================
+def findColDiamond(array):       # Find Column of diamond=====================
     for row in range(len(array)):
         if 2 in array[row]:
             for col in range(len(array[row])):
                 if array[row][col] == 2:
                     return col
-def findRowOfEnemy(array):   # Find row of enemy   ======================
+def findRowOfEnemy(array):       # Find row of enemy   ======================
     for row in range(len(array)):
         if 3 in array[row]:
             return row
-def findColOfEnemy(array):  # Find Column of enemy========================
+def findColOfEnemy(array):        # Find Column of enemy========================
     for row in range(len(array)):
         if 3 in array[row]:
             for col in range(len(array[row])):
