@@ -89,31 +89,31 @@ def displayButton():
     myButton.config(width=7, height=1, bg="#007EE9",fg="yellow",border="5",font=("Arial", 20, "bold"))
     canvas.create_window(630, 520, anchor="nw", window=myButton)
 displayButton()
-def findRow(array):               # Find row of Mario===============================
+def findRowOfMario(array):               # Find row of Mario===============================
     for row in range(len(array)):
         if 1 in array[row]:
             return row
-def findCol(array):              # Find Column of Mario============================
+def findColOfMario(array):              # Find Column of Mario============================
     for row in range(len(array)):
         if 1 in array[row]:
             for col in range(len(array[row])):
                 if array[row][col] == 1:
                     return col
-def findRowDiamond(array):       # Find row of diamond ======================
+def findRowOfMarioDiamond(array):       # Find row of diamond ======================
     for row in range(len(array)):
         if 2 in array[row]:
             return row
-def findColDiamond(array):       # Find Column of diamond=====================
+def findColOfMarioDiamond(array):       # Find Column of diamond=====================
     for row in range(len(array)):
         if 2 in array[row]:
             for col in range(len(array[row])):
                 if array[row][col] == 2:
                     return col
-def findRowOfEnemy(array):       # Find row of enemy   ======================
+def findRowOfMarioOfEnemy(array):       # Find row of enemy   ======================
     for row in range(len(array)):
         if 3 in array[row]:
             return row
-def findColOfEnemy(array):        # Find Column of enemy========================
+def findColOfMarioOfEnemy(array):        # Find Column of enemy========================
     for row in range(len(array)):
         if 3 in array[row]:
             for col in range(len(array[row])):
@@ -141,8 +141,8 @@ def displayScore():
 def moveRight(event):
     global isGameOver, isGameWin,Score,startMusic
     if isGameOver == False and isGameWin==False:
-        Row1 = findRow(grid)
-        Col1 = findCol(grid)
+        Row1 = findRowOfMario(grid)
+        Col1 = findColOfMario(grid)
         canvas.delete("all")
         if Col1+1 < len(grid[Col1]) :
             if grid[Row1][Col1+1] ==0 and Score<5:
@@ -167,8 +167,8 @@ def moveRight(event):
 def moveLeft(event):
     global Score,startMusic,isGameOver,isGameWin
     if isGameOver == False and isGameWin==False:
-        Row1 = findRow(grid)
-        Col1 = findCol(grid)
+        Row1 = findRowOfMario(grid)
+        Col1 = findColOfMario(grid)
         canvas.delete("all")
         if Col1-1 > -1  :
             if grid[Row1][Col1-1] == 0 and Score<5:
@@ -194,8 +194,8 @@ def moveLeft(event):
 def moveUp(event):
     global Score,startMusic,isGameOver
     if isGameOver == False and isGameWin==False:
-        Row1 = findRow(grid)
-        Col1 = findCol(grid)
+        Row1 = findRowOfMario(grid)
+        Col1 = findColOfMario(grid)
         canvas.delete("all")
         if Row1-1 > -1 :
             if grid[Row1-1][Col1] == 0 and Score<5:
@@ -221,8 +221,8 @@ def moveUp(event):
 def moveDown(event):
     global Score,startMusic,isGameOver
     if isGameOver == False and isGameWin==False:
-        Row1 = findRow(grid)
-        Col1 = findCol(grid)
+        Row1 = findRowOfMario(grid)
+        Col1 = findColOfMario(grid)
         canvas.delete("all")
         if Row1+1 < len(grid[Row1]):
             if grid[Row1+1][Col1] == 0 and Score<5:
